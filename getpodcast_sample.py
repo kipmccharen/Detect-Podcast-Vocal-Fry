@@ -1,12 +1,18 @@
 import getpodcast
+import os
 
-opt = getpodcast.options(
-    date_from='2016-07-07',
-    root_dir=r'D:\Py_ML_CS\Podcast\\',
-    mostrecent=5)
+def downloadpodcasts(podcasts, date_from, root_dir, most_recent=5):
+    """Using getpodcast.py accept arguments and download podcast """
+    opt = getpodcast.options(
+        date_from=date_from,
+        root_dir=root_dir,
+        mostrecent=most_recent,
+        run=True)
+    getpodcast.getpodcast(podcasts, opt)
 
-podcasts = {
-    "This American Life":"http://feed.thisamericanlife.org/talpodcast/"
-}
-
-getpodcast.getpodcast(podcasts, opt)
+if __name__ == '__main__':    
+    thisdir = os.path.dirname(os.path.abspath(__file__)) + "\\"
+    savehere = thisdir + r"Podcast\\"
+    date_from = '2020-01-01'
+    podcasts = {"This American Life":"http://feed.thisamericanlife.org/talpodcast/"}
+    downloadpodcasts(podcasts, date_from, savehere, 1)

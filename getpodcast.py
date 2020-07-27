@@ -48,7 +48,7 @@ def options(**kwargs) -> Options:
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
 
-    default_template = "{rootdir}/{podcast}/{year}/{date} {title}{ext}"
+    default_template = "{rootdir}/{date}_{title}{ext}"
 
     parser.add_argument("--run", action="store_true", help="Download podcasts.")
     parser.add_argument(
@@ -103,6 +103,7 @@ def options(**kwargs) -> Options:
     ) #NEW TESTLINE
 
     args = parser.parse_args()
+    args.run = True ### HACK TO MAKE IT WORK FOR NOW
 
     # verify hooks
     try:
@@ -471,7 +472,7 @@ def getSafeFilenameFromText(text):
     reserved_win_keywords = r"(PRN|AUX|CLOCK\$|NUL|CON|COM[1-9]|LPT[1-9])"
 
     # remove reserved windows characters
-    reserved_win_chars = '[\x00-\x1f\\\\?*:";|/<>]'
+    reserved_win_chars = '[\x00-\x1f\\\\?*:";|/<> ]'
     # reserved posix is included in reserved_win_chars. reserved_posix_characters = '/\0'
 
     extra_chars = "[$@{}]"
